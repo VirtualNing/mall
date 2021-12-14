@@ -9,12 +9,12 @@ export default class List extends Component {
     todos: PropTypes.array.isRequired
   }
   render() {
-    const {todos,toChild} = this.props;
+    const {todos,toChild,todoDelete} = this.props;
     return (
       <ul className="todo-main">
         {
           todos.map(todo => {
-            return <Item toChild={toChild} key={todo.id} {...todo}></Item>;
+            return <Item todoDelete={todoDelete} toChild={toChild} key={todo.id} {...todo}></Item>;
           })
         }
       </ul>

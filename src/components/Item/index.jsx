@@ -22,7 +22,9 @@ export default class Item extends Component {
     }
   }
   handleDelete = (id) => {
-      console.log(id);
+      if(window.confirm("确定删除？")){
+        this.props.todoDelete(id)
+      }
   }
   render() {
     const {id,name,done} = this.props;
@@ -30,7 +32,7 @@ export default class Item extends Component {
     return (
       <li style={{backgroundColor:mouse ? '#add' : '#fff'}} key={id} onMouseEnter={this.handleMouse(true)} onMouseLeave={this.handleMouse(false)}>
         <label>
-          <input defaultChecked={done} type="checkbox" onChange={this.handleCheck(id)} />
+          <input checked={done} type="checkbox" onChange={this.handleCheck(id)} />
           <span>{name}</span>
         </label>
         <button onClick={() => this.handleDelete(id)} className="btn btn-danger" style={{ display: !mouse ? 'none' : 'block' }}>删除</button>

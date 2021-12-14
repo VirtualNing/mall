@@ -37,13 +37,35 @@ export default class App extends Component{
       todos: todoUpdates
     })
   }
+  handleDelete = (id) =>{
+    const {todos} = this.state;
+    const newTodos = todos.filter((obj) =>{
+      return obj.id !== id
+    })
+    this.setState({
+      todos: newTodos
+    })
+  }
+  handleCheckAll = (done) =>{
+    const {todos} = this.state;
+    const newTodos = todos.map((todo)=>{return {...todo,done}});
+    this.setState({todos:newTodos})
+  }
+  handleClear = (done) =>{
+    const {todos} = this.state;
+    const newTodos = todos.filter((obj) =>{
+      return obj.done !== done
+    })
+    this.setState({todos: newTodos})
+  }
   render(){
+    const {todos} = this.state;
     return (
       <div className="todo-container">
         <div className="todo-wrap">
           <Header sendOut={this.handleSend} />
-          <List toChild={this.handleUpdate} todos={this.state.todos} />
-          <Footer />
+          <List todoDelete = {this.handleDelete} toChild={this.handleUpdate} todos={todos} />
+          <Footer todoClear={this.handleClear} todoChenkAll={this.handleCheckAll} todos={todos} />
         </div>
       </div>
     )
